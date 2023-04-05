@@ -111,7 +111,7 @@
           </p>
           <p>
             We ask participants to design and implement a working, open-source AI/ML algorithm that can automatically discriminate skin disease from skin image 
-	    while being able to be deployed and run on the given platform. We will award prizes to the teams with top comprehensive performances in terms
+	    while being able to be deployed and run on the given platform [2]. We will award prizes to the teams with top comprehensive performances in terms
             of detection accuracy, fairness, and inference latency.
           </p>
           <h5>
@@ -130,7 +130,7 @@
 		    4. Platform
 		  </h5>
 		  <p>
-		    Raspberry Pi [2] boards are tiny, incredibly versatile computers that have been put to an increasing number of practical, fun, 
+		    Raspberry Pi [3] boards are tiny, incredibly versatile computers that have been put to an increasing number of practical, fun, 
 		    and diverse uses by hobbyists. This exceptional flexibility has only been increased over the years by manufacturers coming out with 
 		    a plethora of add-ons like sensors, touchscreens, wireless connectivity modules, and purpose-built cases. This latest main-line 
 		    generation from the Raspberry Pi Project includes the Raspberry Pi 4 with 4GB of onboard RAM.
@@ -170,7 +170,7 @@
 		  <ul>
 		    <li>
                         Unfairness Score: Based on the overall accuracy and the accuracy for each subgroup g, the unfairness score U of
-                        a model N on dataset D based on L1-norm [3], which is U (f ′N , D) = ∑∀gi∈G{|A(f ′N , Dgi ) − A(f ′N , D)|}.
+                        a model N on dataset D based on L1-norm [4], which is U (f ′N , D) = ∑∀gi∈G{|A(f ′N , Dgi ) − A(f ′N , D)|}.
 			</li>
 			<li>
 			  Inference Latency: the average latency L (in ms) of inference executed on Raspberry Pi 4 from the testing dataset
@@ -191,10 +191,14 @@
              [1 ]Krizhevsky, I. Sutskever, and G. E. Hinton, “Imagenet classification with deep convolutional neural networks,” Advances in neural 
 	     information processing systems, vol. 25, 2012.
           <p>
-            [2] Platform. https://www.raspberrypi.com/for-home/.
+            [2] Sheng, Yi, et al. "The larger the fairer? small neural networks can achieve fairness for edge devices." 
+		  Proceedings of the 59th ACM/IEEE Design Automation Conference. 2022.
+          </p>
+	   <p>
+            [3] Platform. https://www.raspberrypi.com/for-home/.
           </p>
           <p>
-            [3] Unfairness. https://en.wikipedia.org/wiki/L1-normprincipalcomponentanalysis/.
+            [4] Unfairness. https://en.wikipedia.org/wiki/L1-normprincipalcomponentanalysis/.
           </p>
           
         </div>            
