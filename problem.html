@@ -164,10 +164,10 @@
 		  </p>
 		  <ul>
 		    <li>
-                        Unfairness Score: Based on the  accuracy for each subgroup  and Statistical Parity Difference (SPD) [4], the unfairness score U of
-                        a model N on dataset D based on SPD, which is U (f ′N , D) for one group =  P(ˆY=1 ∣ A=minority)−P(ˆY=1 ∣ A=majority). For the minority group(the groups
-			    has the minimum samples), the SPD is zer0. After that operation, we will have the table of the SPDfor each group. For the unfairness score, it will be
-			    ∑∀gi∈G{|SPDi|}/N. N is the the number of the subgroups that the dataset has.
+                        Unfairness Score: Based on the  accuracy for each subgroup and Statistical Parity Difference (SPD) [4], the unfairness score U of
+                        a model N based on SPD, which is SPD (f ′N , Gi) for one subgroup, SPD (f ′N , Gi)=P(ˆY=1 ∣ A=minority)−P(ˆY=1 ∣ A=majority). For the minority group(the groups
+			    has the minimum samples), the SPD is 0. After that operation, we will have the table of the SPD for each group. For the unfairness score, it will be
+			  (0.2-∑∀gi∈G{|SPDi|}/N)/0.2. N is the the number of the subgroups that the dataset has.
 			</li>
 			<li>
 			  Inference Latency: the average latency L (in ms) of inference executed on Raspberry Pi 4 from the testing dataset
