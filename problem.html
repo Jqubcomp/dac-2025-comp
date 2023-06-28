@@ -170,8 +170,14 @@
 			  (0.2-∑∀gi∈G{|SPDi|}/N)/0.2. N is the the number of the subgroups that the dataset has.
 			</li>
 			<li>
-			  Inference Latency: the average latency L (in ms) of inference executed on Raspberry Pi 4 from the testing dataset
-                          will be measured.
+			  Inference Latency: We will run 10 iterations to get the average latency L (in s) on Raspberry Pi 4 with 100 random selected images from testing dataset. 
+L=1/10 ∑_(i=1)^10▒L_i 
+				where L_i means the latency at i-th iteration.
+The average inference latency L will be recorded The latency score will be normalized by 
+L_n=1-  (L-L_min)/(L_max  - L_min )
+where L_min=0s, and L_max=100s.
+
+
 			</li>
 		  </ul>
 		  <P>
