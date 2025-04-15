@@ -54,22 +54,6 @@
     </nav>
     <div id="content">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <!--           <div class="container-fluid">
-            <button type="button" id="sidebarCollapse" class="btn btn-outline-secondary">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a href="http://ieee-ceda.org/">
-                                      <img border="0" src="Figures/ESweek_2023.png" width="100" height="100"></a>
-              </li>
-              <li class="nav-item active" style="margin:auto">
-                <a class="nav-link" href="problem.html"><h2 >Fair and Intelligent Embedded System Challenge </h2><span class="sr-only">(current)</span></a>
-              </li>
-
-             
-            </ul>
-          </div>  -->
         <div class="container-fluid">
           <button type="button" id="sidebarCollapse" class="btn btn-outline-secondary">
             <span class="navbar-toggler-icon"></span>
@@ -117,7 +101,7 @@
           seismic data, typically using gradient-based optimization methods. The key challenge lies in solving the wave
           equation, which governs wave propagation through the Earth. While effective, these methods are computationally
           expensive and sensitive to factors such as the quality of the initial
-          velocity model, noise in the data, and cycle-skipping issues—where the inversion algorithm converges to
+          velocity model, noise in the data, and cycle-skipping issues - where the inversion algorithm converges to
           incorrect solutions due to poor starting models or insufficient low frequency data
           In recent years, machine
           learning approaches have been increasingly explored for
@@ -146,7 +130,7 @@
         </h5>
         <p>
           The goal of the <em>On-Device Multi-modal Generative AI for Science Contest at DAC 2025</em> is to achieve the
-          best performance in multi-modal (seismic wave and velocity maps) generation quality and and latency for the
+          best performance in multi-modal (seismic wave and velocity maps) generation quality and latency for the
           hardware platform from the FWI dataset.
         </p>
         <p>
@@ -160,11 +144,11 @@
           3. Data
         </h5>
         <p>
-          The dataset for this contest is the <em>FWI dataset</em>, which is a collection of seismic data and velocity
+          The dataset for this contest is the <a href="https://drive.google.com/drive/folders/1vqUHJ-iRwp3ozL-e4HhKGpdO0e7NQZE1">CurveFault-A</a> in <em>OpenFWI datasets</em>  which is a collection of seismic data and velocity
           maps.
           The dataset is generated from the <em>Seismic FWI</em> simulation, which is a widely used method for
           subsurface imaging in geophysics.
-          The dataset contains a total of XXX pairs of seismic data and velocity maps, with each pair representing a
+          The dataset contains a total of 60000 pairs of seismic data and velocity maps, with each pair representing a
           unique subsurface model.
 
         </p>
@@ -220,17 +204,22 @@
             </p>
             <p> We will train a InceptionNet on the dataset, and then compute the FID score of the generated seismic
               data and velocity maps with respect to the ground truth data.</p>
+            <p>
+              The normalized FID score will be calculated as follows:
+              $$ FID_v = 1 - \frac{F_{vel} - F_{vmin}}{F_{vmax} - F_{vmin}} $$
 
-            The normalized FID score will be calculated as follows:
-            $$ FID_v = 1 - \frac{F_{vel} - F_{vmin}}{F_{vmax} - F_{vmin}} $$
-
-            $$ FID_s = 1 - \frac{F_{seis} - F_{smin}}{F_{smax} - F_{smin}} $$
-            where \( F_{seis} \) and \( F_{vel} \) represents the FID score of the generated seismic
+              $$ FID_s = 1 - \frac{F_{seis} - F_{smin}}{F_{smax} - F_{smin}} $$
+              where \( F_{seis} \) and \( F_{vel} \) represents the FID score of the generated seismic
               wave velocity map, and \( FID_v \) and \( FID_s \) means the normalized FID score of the generated seismic
-              wave velocity map. 
-              \( F_{vmin}\), \( F_{vmax}\), \( F_{smin}\), and \( F_{smax}\) TBD soon.
-              <!-- \( F_{vmin}=0 \), \( F_{vmax}=100\), \( F_{smin}=0\), and \( F_{smax}=100\).<font color="red"> </font> -->
-
+              wave velocity map.
+              \( F_{vmin} = 1 \) , \( F_{vmax} = 20\) , \( F_{smin} = 1 \), and \( F_{smax} = 20 \).
+            </p>
+            <p>
+              If the \( F_{seis} \) and \( F_{vel} \) is less than \(1\), the \(FID_v\) and \(FID_s\) will be set to
+              \(1\),
+              and if the \( F_{seis} \) and \( F_{vel} \) is greater than \(20\), the \(FID_v\) and \(FID_s\) will be
+              set to \(0\).
+            </p>
           </li>
         </ul>
         <p>
@@ -248,9 +237,11 @@
             The SSIM score will be normalized by
             <p>
               $$ SSIM = \frac{S - S_{min}}{S_{max} - S_{min}} $$
+              where \( S_{min} = 0.8 \) and \( S_{max} = 1\).
             </p>
-            \( S_{min}\) and \( S_{max}\) TBD soon.
-
+            <p>
+              If the SSIM score is less than \(0.8\), the SSIM will be set to \(0\).
+            </p>
 
           </li>
         </ul>
@@ -259,15 +250,20 @@
         </p>
         <ul>
           <li>
-            Inference Latency: We will run inference 10 times to get the average latency L (in s) on Raspberry Pi 4.
+            Inference Latency: We will run inference 10 times to get the average latency \( Lat \) (in s) on Raspberry Pi 4 for one data sample generation (one seismic wave (5, 1000, 70) and one velocity map (1, 70, 70)).
             <!-- <img border="0" src="Figures/l_c.png" > -->
             The average inference latency L will be recorded The latency score will be normalized by
             <p>
-              $$ L_n = 1 - \frac{L - L_{min}}{L_{max} - L_{min}} $$
-            </p>
+              $$ L = 1 - \frac{Lat - L_{min}}{L_{max} - L_{min}} $$
+            
             <!-- where <font color="red"> L_min=0s, and L_max=100s.</font> -->
-            \( L_{min}\) and \( L_{max}\) TBD soon.
+            \( L_{min} = 5 (s) \) and \( L_{max} = 100 (s) \) TBD soon.
+          </p>
 
+            <p>
+              If the latency is less than \(5s \), the latency will be set to \(1\),
+              and if the latency is greater than \(100s \), the latency will be set to \(0\).
+            </p>
 
           </li>
         </ul>
@@ -275,11 +271,48 @@
           The final score will be calculated as follows:
         </p>
         <P>
-          $$ Score = \frac{1}{3} \times (\frac{1}{2} \times (FID_{s} + FID_{v})) + \frac{1}{3} \times SSIM + \frac{1}{3} \times L_n $$
+          $$ Score = (\frac{1}{3} \times (\frac{1}{2} \times (FID_{s} + FID_{v})) + \frac{1}{3} \times SSIM + \frac{1}{3}
+          \times L) \times 100 $$
         </p>
-
         <h5>
-          6. References
+          6. Demo
+        </h5>
+        <p>
+          A demo implementation of the multi-modal generative AI algorithm can be found <a href="https://github.com/Jqubcomp/SDC-DAC25">here</a>.
+          Please find the README file for more details, and read the "Important Note" section for implementation requirements.
+        </p>
+        <p>
+          Due to time constraints, we encourage all teams to focus on optimizing their machine learning algorithms.
+          Therefore, <strong>only Python-based solutions will be accepted.</strong>
+          The Raspberry Pi 4 running Ubuntu 23.04 (64-bit) with an aarch64 architecture will be used for latency evaluation. 
+          Please ensure that your solution is compatible with this environment.
+        </p>
+        <p>
+          This demo is implemented based on
+          "A Novel Diffusion Model for Pairwise Geoscience Data Generation with Unbalanced Training Dataset" [5].
+        </p>
+        <p>
+          The score of this demo is calculated as follows:
+          <ul>
+            <li>
+            \( F_{seis} = 16.2055 \), \( F_{vel} = 15.8805\), and thus the \( FID_{s} = 0.1997 \), \( FID_{v} = 0.2168\).
+            </li>
+            <li>
+              \( S = 0.8827 \), and thus the \( SSIM = 0.4137 \).
+            </li>
+            <li>
+              \( Lat = 70 \), and thus the \( L = 0.3158 \).
+            </li>
+            <li>
+              The final score is calculated as
+              $$ Score = (\frac{1}{3} \times (\frac{1}{2} \times (0.1997 + 0.2168)) + \frac{1}{3} \times 0.4137 + \frac{1}{3}
+          \times 0.3158) \times 100 = 31.26 $$
+            </li>
+          </ul> 
+        </p>
+          
+        <h5>
+          7. References
         </h5>
         <p>
           [1] Platform. https://www.raspberrypi.com/for-home/.
@@ -297,7 +330,9 @@
           [4] Wu, Yue, and Youzuo Lin. "InversionNet: An efficient and accurate data-driven full waveform inversion."
           IEEE Transactions on Computational Imaging 6 (2019): 419-433.
         </p>
-
+        <p>
+          [5] Yang, Junhuan, et al. "A Novel Diffusion Model for Pairwise Geoscience Data Generation with Unbalanced Training Dataset." Proceedings of the AAAI Conference on Artificial Intelligence 2025.
+        </p>
       </div>
     </div>
 
